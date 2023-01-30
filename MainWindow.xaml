@@ -18,13 +18,16 @@
 <!-- ║ License.                                                                                               ║ -->
 <!-- ╚════════════════════════════════════════════════════════════════════════════════════════════════════════╝ -->
 
-<Window
+<syncfusion:RibbonWindow
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sputnik"
-        xmlns:syncfusion="http://schemas.syncfusion.com/wpf" x:Class="Sputnik.MainWindow"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
+        xmlns:syncfusionskin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF" 
+        syncfusionskin:SfSkinManager.VisualStyle="Office2010Black"
+        x:Class="Sputnik.MainWindow"
         mc:Ignorable="d"
         Title="Sputnik Satellite Tracker" Height="950" Width="1885">
     <Grid>
@@ -121,19 +124,6 @@
             <TextBlock Grid.Row="1" Grid.Column="1" Text="USER OBJECT LIBRARY" />
             <Button Grid.Row="1" Grid.Column="2" Content="Manage Library" />
         </Grid>
-        <Grid Grid.Row="1" Grid.Column="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="5" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="5" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="10" />
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="1" Grid.Column="1" Name="canvasSummaryTextBlock" Text="LOCATION/UPDATE FIELD" />
-        </Grid>
         <Grid Grid.Row="1" Grid.Column="4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="5" />
@@ -149,20 +139,41 @@
         </Grid>
 
         <!-- Add in the main Canvas element, the UI centerpiece which displays the satellite tracks over an     -->
-        <!-- equirectangular map projection.                                                                    -->
-        <Canvas Grid.Row="2" Grid.Column="2" Name="mapCanvas">
-            <Canvas.Background>
-                <ImageBrush ImageSource="Assets/Equirectangular.png" Stretch="Fill" TileMode="None" />
-            </Canvas.Background>
-        </Canvas>
+        <!-- equirectangular map projection. This is encased in its own Grid to allow for the correct placement -->
+        <!-- of a GridSplitter.                                                                                 -->
+        <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="1" Grid.Column="1" Name="canvasSummaryTextBlock" Text="LOCATION/UPDATE FIELD" />
+            <GridSplitter Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" ResizeDirection="Rows" Height="4" 
+                          HorizontalAlignment="Stretch" Background="DarkGray" IsEnabled="False" />
+            <Canvas Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Name="mapCanvas">
+                <Canvas.Background>
+                    <ImageBrush ImageSource="Assets/Equirectangular.png" Stretch="Fill" TileMode="None" />
+                </Canvas.Background>
+            </Canvas>
+            <GridSplitter Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" ResizeDirection="Rows" Height="4" 
+                          HorizontalAlignment="Stretch" Background="DarkGray" IsEnabled="False" />
+        </Grid>
 
         <!-- TODO: Add data pane in Column 4.                                                                   -->
 
         <!-- Add in GridSplitters to visually separate the center elements a bit.                               -->
         <GridSplitter Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" ResizeDirection="Columns" Width="4" 
-                      IsEnabled="False" />
+                      Background="DarkGray" IsEnabled="False" />
         <GridSplitter Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" ResizeDirection="Columns" Width="4" 
-                      IsEnabled="False" />
+                      Background="DarkGray" IsEnabled="False" />
 
         <!-- Set up the StatusBar in the lower aspect of the screen. Configure it to have three equally-sized,  -->
         <!-- separated elements representing a status message, the current time, and a progress bar for         -->
@@ -194,4 +205,4 @@
             </StatusBarItem>
         </StatusBar>
     </Grid>
-</Window>
+</syncfusion:RibbonWindow>
