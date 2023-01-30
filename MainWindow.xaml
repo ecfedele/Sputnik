@@ -48,7 +48,7 @@
         <!-- Set up the Ribbon, the primary user interface for configuration and settings, among other things.  -->
         <!-- Use the ColumnSpan property to ensure it always comprises the full width of the window.            -->
         <syncfusion:Ribbon Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Center" 
-            Height="145" VerticalAlignment="Top">
+                           Height="145" VerticalAlignment="Top">
             <syncfusion:Ribbon.ApplicationMenu>
                 <syncfusion:ApplicationMenu IsPopupOpen="False"/>
             </syncfusion:Ribbon.ApplicationMenu>
@@ -105,6 +105,49 @@
             </syncfusion:SfTreeView.Nodes>
         </syncfusion:SfTreeView>
 
+        <!-- Add "line header" elements                                                                         -->
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="USER OBJECT LIBRARY" />
+            <Button Grid.Row="1" Grid.Column="2" Content="Manage Library" />
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="1" Grid.Column="1" Name="canvasSummaryTextBlock" Text="LOCATION/UPDATE FIELD" />
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="SELECTED OBJECT DATA" />
+        </Grid>
+
         <!-- Add in the main Canvas element, the UI centerpiece which displays the satellite tracks over an     -->
         <!-- equirectangular map projection.                                                                    -->
         <Canvas Grid.Row="2" Grid.Column="2" Name="mapCanvas">
@@ -116,8 +159,10 @@
         <!-- TODO: Add data pane in Column 4.                                                                   -->
 
         <!-- Add in GridSplitters to visually separate the center elements a bit.                               -->
-        <GridSplitter Grid.Row="2" Grid.Column="1" ResizeDirection="Columns" Width="4" IsEnabled="False" />
-        <GridSplitter Grid.Row="2" Grid.Column="3" ResizeDirection="Columns" Width="4" IsEnabled="False" />
+        <GridSplitter Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" ResizeDirection="Columns" Width="4" 
+                      IsEnabled="False" />
+        <GridSplitter Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" ResizeDirection="Columns" Width="4" 
+                      IsEnabled="False" />
 
         <!-- Set up the StatusBar in the lower aspect of the screen. Configure it to have three equally-sized,  -->
         <!-- separated elements representing a status message, the current time, and a progress bar for         -->
