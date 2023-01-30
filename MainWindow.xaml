@@ -32,10 +32,11 @@
         Title="Sputnik Satellite Tracker" Height="950" Width="1885">
     <Grid>
         <!-- Configure row definitions so WPF doesn't decide to completely send the layout to the shadow realm  -->
-        <!-- if the window is resized. Configure the Grid as a 4 x 5 layout, with Auto heights/widths used for  -->
-        <!-- elements with a well-defined primary dimension.                                                    -->
+        <!-- if the window is resized. Configure the Grid as a 3 x 5 layout, with Auto heights/widths used for  -->
+        <!-- elements with a well-defined primary dimension. This is somewhat-rearchitected from a previous     -->
+        <!-- iteration; coalescing some rows in the outer Grid leads to less headache when dealing with the     -->
+        <!-- "central components".                                                                              -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -66,82 +67,83 @@
 
         <!-- Configure the SfTreeView to display a list (with checkboxes) of satellites the user might wish to  -->
         <!-- select for viewing on the Canvas.                                                                  -->
-        <syncfusion:SfTreeView Grid.Row="2" Grid.Column="0">
-            <syncfusion:SfTreeView.Nodes>
-                <syncfusion:TreeViewNode Content="Grains" IsExpanded="True">
-                    <syncfusion:TreeViewNode.ChildNodes>
-                        <syncfusion:TreeViewNode Content="Cereals" IsExpanded="True">
-                            <syncfusion:TreeViewNode.ChildNodes>
-                                <syncfusion:TreeViewNode Content="Rice"/>
-                                <syncfusion:TreeViewNode Content="Barley"/>
-                            </syncfusion:TreeViewNode.ChildNodes>
-                        </syncfusion:TreeViewNode>
-                        <syncfusion:TreeViewNode Content="OilSeeds">
-                            <syncfusion:TreeViewNode.ChildNodes>
-                                <syncfusion:TreeViewNode Content="Safflower"/>
-                            </syncfusion:TreeViewNode.ChildNodes>
-                        </syncfusion:TreeViewNode>
-                    </syncfusion:TreeViewNode.ChildNodes>
-                </syncfusion:TreeViewNode>
-                <syncfusion:TreeViewNode Content="Fruits" IsExpanded="true">
-                    <syncfusion:TreeViewNode.ChildNodes>
-                        <syncfusion:TreeViewNode Content="Orange"/>
-                        <syncfusion:TreeViewNode Content="Apples" IsExpanded="true"/>
-                    </syncfusion:TreeViewNode.ChildNodes>
-                </syncfusion:TreeViewNode>
-                <syncfusion:TreeViewNode Content="Vegetables" IsExpanded="true">
-                    <syncfusion:TreeViewNode.ChildNodes>
-                        <syncfusion:TreeViewNode Content="Root vegetables" IsExpanded="true">
-                            <syncfusion:TreeViewNode.ChildNodes>
-                                <syncfusion:TreeViewNode Content="Potato"/>
-                                <syncfusion:TreeViewNode Content="Carrot"/>
-                            </syncfusion:TreeViewNode.ChildNodes>
-                        </syncfusion:TreeViewNode>
-                        <syncfusion:TreeViewNode Content="Podded">
-                            <syncfusion:TreeViewNode.ChildNodes>
-                                <syncfusion:TreeViewNode Content="peanut"/>
-                                <syncfusion:TreeViewNode Content="lentil"/>
-                            </syncfusion:TreeViewNode.ChildNodes>
-                        </syncfusion:TreeViewNode>
-                    </syncfusion:TreeViewNode.ChildNodes>
-                </syncfusion:TreeViewNode>
-            </syncfusion:SfTreeView.Nodes>
-        </syncfusion:SfTreeView>
-
-        <!-- Add "line header" elements                                                                         -->
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="5" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="5" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="10" />
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="USER OBJECT LIBRARY" />
-            <Button Grid.Row="1" Grid.Column="2" Content="Manage Library" />
-        </Grid>
-        <Grid Grid.Row="1" Grid.Column="4">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="5" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="10" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="SELECTED OBJECT DATA" />
+            <!-- "Line header" for SfTreeView pane                                                              -->
+            <Grid Row="1" Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="USER OBJECT LIBRARY" />
+                <Button Grid.Column="1" Content="Manage Library" />
+            </Grid>
+            <!-- Separator between header and SfTreeView                                                        -->
+            <GridSplitter Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" ResizeDirection="Rows" Height="4" 
+                          HorizontalAlignment="Stretch" Background="DarkGray" IsEnabled="False" />
+            <!-- SfTreeView                                                                                     -->
+            <syncfusion:SfTreeView Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
+                <syncfusion:SfTreeView.Nodes>
+                    <syncfusion:TreeViewNode Content="Grains" IsExpanded="True">
+                        <syncfusion:TreeViewNode.ChildNodes>
+                            <syncfusion:TreeViewNode Content="Cereals" IsExpanded="True">
+                                <syncfusion:TreeViewNode.ChildNodes>
+                                    <syncfusion:TreeViewNode Content="Rice"/>
+                                    <syncfusion:TreeViewNode Content="Barley"/>
+                                </syncfusion:TreeViewNode.ChildNodes>
+                            </syncfusion:TreeViewNode>
+                            <syncfusion:TreeViewNode Content="OilSeeds">
+                                <syncfusion:TreeViewNode.ChildNodes>
+                                    <syncfusion:TreeViewNode Content="Safflower"/>
+                                </syncfusion:TreeViewNode.ChildNodes>
+                            </syncfusion:TreeViewNode>
+                        </syncfusion:TreeViewNode.ChildNodes>
+                    </syncfusion:TreeViewNode>
+                    <syncfusion:TreeViewNode Content="Fruits" IsExpanded="true">
+                        <syncfusion:TreeViewNode.ChildNodes>
+                            <syncfusion:TreeViewNode Content="Orange"/>
+                            <syncfusion:TreeViewNode Content="Apples" IsExpanded="true"/>
+                        </syncfusion:TreeViewNode.ChildNodes>
+                    </syncfusion:TreeViewNode>
+                    <syncfusion:TreeViewNode Content="Vegetables" IsExpanded="true">
+                        <syncfusion:TreeViewNode.ChildNodes>
+                            <syncfusion:TreeViewNode Content="Root vegetables" IsExpanded="true">
+                                <syncfusion:TreeViewNode.ChildNodes>
+                                    <syncfusion:TreeViewNode Content="Potato"/>
+                                    <syncfusion:TreeViewNode Content="Carrot"/>
+                                </syncfusion:TreeViewNode.ChildNodes>
+                            </syncfusion:TreeViewNode>
+                            <syncfusion:TreeViewNode Content="Podded">
+                                <syncfusion:TreeViewNode.ChildNodes>
+                                    <syncfusion:TreeViewNode Content="peanut"/>
+                                    <syncfusion:TreeViewNode Content="lentil"/>
+                                </syncfusion:TreeViewNode.ChildNodes>
+                            </syncfusion:TreeViewNode>
+                        </syncfusion:TreeViewNode.ChildNodes>
+                    </syncfusion:TreeViewNode>
+                </syncfusion:SfTreeView.Nodes>
+            </syncfusion:SfTreeView>
+            <!-- Bottom separator                                                                               -->
+            <GridSplitter Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" ResizeDirection="Rows" Height="4" 
+                          HorizontalAlignment="Stretch" Background="DarkGray" IsEnabled="False" />
         </Grid>
 
         <!-- Add in the main Canvas element, the UI centerpiece which displays the satellite tracks over an     -->
         <!-- equirectangular map projection. This is encased in its own Grid to allow for the correct placement -->
         <!-- of a GridSplitter.                                                                                 -->
-        <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="2">
+        <Grid Grid.Row="1" Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="5" />
                 <RowDefinition Height="Auto" />
@@ -167,7 +169,32 @@
                           HorizontalAlignment="Stretch" Background="DarkGray" IsEnabled="False" />
         </Grid>
 
-        <!-- TODO: Add data pane in Column 4.                                                                   -->
+        <!-- The data pane (TBD). This is where parameters such as orbital state vectors and other spacecraft   -->
+        <!-- information will be displayed to the user.                                                         -->
+        <Grid Grid.Row="1" Grid.Column="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="SELECTED OBJECT DATA" />
+            <!-- Separator between header and data pane elements                                                -->
+            <GridSplitter Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" ResizeDirection="Rows" Height="4" 
+                          HorizontalAlignment="Stretch" Background="DarkGray" IsEnabled="False" />
+            <!-- Placeholder for data pane Grid                                                                 -->
+            <Canvas />
+            <!-- Bottom separator                                                                               -->
+            <GridSplitter Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" ResizeDirection="Rows" Height="4" 
+                          HorizontalAlignment="Stretch" Background="DarkGray" IsEnabled="False" />
+        </Grid>
 
         <!-- Add in GridSplitters to visually separate the center elements a bit.                               -->
         <GridSplitter Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" ResizeDirection="Columns" Width="4" 
