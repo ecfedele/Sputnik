@@ -1,0 +1,7 @@
+{
+    "satelliteCategories": ["Popular", "NASA", "Roscosmos", "Classified", "Molniya orbits"],
+    "satelliteList": [
+        {"displayName": "Hubble Space Telescope (HST)", "cat": [0, 1], "cospar": "1990-037B", "satcat": 20580},
+        {"displayName": "International Space Station (ISS)", "cat": [0], "cospar": "1998-067A", "satcat": 25544}
+    ]
+}
